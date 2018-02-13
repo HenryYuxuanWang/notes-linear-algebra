@@ -1,0 +1,241 @@
+MIT
+Lecture 1
+Ax is a combination of columns of A
+
+Lecture 2
+1.
+(1)高斯消元法，得到上三角距离U，尤其重要的是利用矩阵左乘操作行向量来实现消元步骤。
+(2)左乘行向量表示对原矩阵的行向量进行线性组合，右乘列向量表示对原矩阵的列向量进行线性组合。
+(3)矩阵乘法的结合律和逆矩阵的由来。强调以向量的线性和为基础来思考矩阵乘法。
+2.
+矩阵消元可看作矩阵A左乘向量。向量相乘，设左边矩阵为A，右边矩阵为B，相乘后的矩阵C。如要检验矩阵C里的元素，如(2,3)的元素(row 2,column 3),
+即把左向量A的row 2，和右向量B的column 3，求两个向量的点积。跟C里面的(2,3)的元素对比。
+3.
+(1)初等矩阵(elementary/elimination matrix)就是在矩阵A做高斯消元时，求每一行(row)的pivot的时候，每一步需要左乘的矩阵E(每一步用到一个初等矩阵)
+(2)E_32*(E_21*A) = U 即(E_32*E_21)*A 增减括号是矩阵乘法的一个性质，对任意矩阵乘法适用，associate law(结合律)，（you can move the paranthesis）
+(3)permutation: exchange rows of identity matrxi I and multiply the matrix A
+行变换: 向量A左乘单位矩阵I的行变换，即[01|10](p - permutation) * [ab|cd] = [cd|ab]
+列变换: 向量A右乘单位矩阵I的列变换，即[ab|cd] * [01|10](p - permutation) = [ba|dc]
+(4)Inverses:
+矩阵乘以初等矩阵得到单位矩阵
+E [A I] = [I ?], E*A = I，即E=A^(-1)，E*I = E, 即'?' = E =A^(-1)
+
+Lecture 3
+1.
+矩阵乘法4种方式：
+(3)A(m*n)B(n*p)=C(m*p) columns of C are combinations of columns of A (the columns of )
+(4)AB = sums of (cols of A)*(rows of B)
+2.
+Inverse:
+You can find a vector x with Ax = 0(not 0 vector)
+A * column j of A^(-1) = column j of I(identity matrix)
+3.
+Gausss-Jordan:
+solve 2 equations at once
+
+Lecture 4
+1.
+A = LU
+If no row exchanges, multipliers go directly into L.
+2.
+operations=(multiplier + subtraction)
+如果向量左乘初等矩阵，操作数量为：
+n^2+(n+1)^2+...+3^2+2^2+1^2，约等于1/3n^3,
+常数向量operation次数约为n^2次，cost of b = n^2
+3.
+row exchange:
+for permutation matrices:
+P = P.T
+P = P^-1
+P^-1 = P.T
+
+Lecture 5
+1.vector spaces:
+R^2 = all 2-dim real vectors =x-y plane, R^3 = all vectors with 3 real components
+即 R^n = all column vectors with n real components
+Vectoct space requirementsz: v + w and cv are in the space, all combos cv + dw are in the space
+2.subspace
+a vector space inside R^n, a subspace of R^n
+a line in R^n must go through zero vector, every subspace must contain zero
+subspace of R^2
+(1)all of R^2
+(2)any line through zero vector
+(3)the zreo vector alone
+subspace of R^3
+(1)itself
+(2)plane through 0
+(3)line through 0
+(4)zero vector
+2 subspaces: P and L, P U L = all vectors in P or L or both, this is not a subspace
+Subspaces S and I intersection is a subspace
+
+3.column space:
+the column space of matrix A,C(A)
+all the linear combinations of column vectors form a subspace
+4.null space
+null space is a vector space
+All solutions to Ax=0
+solutions to Ax=0 always give a subspace
+If Av=0 and Aw=0 the A(v+W)=0, because Av + Aw = 0
+A(kx)=0 because kAx=0
+
+
+Lecture 6
+
+Lecture 7 Computing null space
+1.
+rank of A = # of pivots (means there really were R equations here
+In m*n matrix, n-r = # of free variables
+2.
+pivot variables
+free variables: any numbers
+3.algorithm
+(1)going onward when there's nothing to be done on one column
+(2)decide which are free columns(n-r) or pivot columns(r)
+(3)get the echelon form(upper triangular) U, then elimination upwards, get R = reduced row echelon form.
+(zeros above + below  pivots = 1), notice r*r Identity matrix in pivot rows/cols
+4.
+(1)rref form: [I F|0 0] Rx=0, RN=0
+(2)null space matrix: [-F|I] (columns = special solutions)
+x_pivots = -Fx_free, if the free variables is I, x_pivots is -F.
+special solutions: special numbers given to the free variables(It's a Identity matrix)
+(3) the number of pivot columns for A and A transpose are the same.
+
+lecture 8
+1.solvable condition on b:
+Ax=b solvable when b is in C(A) column space
+if a combination of rows of A gives zero rows, the same entries of b must gives 0
+
+2.To find complete solutions to Ax=b
+(1)x particular: set all free variables to zero, solve Ax=b for the pivot variables
+(2)x null space:
+x = x_p + x_n(Ax=0的解)
+Ax_p=b, Ax_n=0, so A(x_p+x_n)=b
+x_p is one particular solution, x_n is a whole subspace
+x_complete is not a subspace because it doesn't go through the origin(原点)
+m by n matrix A of rank r, (know r <= m,n)
+
+3. full rank
+(1)full column rank, r = n
+N(A) only the zero vectors, so solution to Ax=b: x=x_p(particular), unique solution if it exists(0 or 1 solution)
+b must the linear combination of all the columns and only 1 solution exists
+(2)row full rank, r = m
+can solve Ax=b for every b, exists
+left with n-r(n-m ) free variables
+(3)r=m=n, A is an invertible matrix
+R=I, the null space of this matrix is only zero vector
+4.conclusion
+(1)
+r=m=n, R = I, 1 solution
+(2)
+r = n < m
+R = [I|0], 0 or 1 solution
+(3)
+r = n<m
+R = [I F], the F could be partly mixed into the I.
+infinitely many solutions
+(4)
+r < n, r < m
+R = [I F|0 0]
+0 or infinitely many solutions
+矩阵的秩r 决定了方程组解得数量
+
+Lecture 9
+1.
+向量组的极大无关组：
+若有n个m维向量组成向量组A(m,n)，该向量组（矩阵）的极大无关组（即对应列向量空间的基basics）数量为r(A)，等于向量组的列秩(等于行秩)，
+也等于列向量空的维数（dimension），此时向量空间里面'向量'的维度为m。
+2.
+基础解系：
+而基础解系为其次方程组（对应系数矩阵可看为向量组或矩阵A）的解x（维度为n的向量）所组成的解的向量空间的基，或称为解向量组的极大无关组，
+它的维数为n-r，即解空间由n-r个线性无关的向量组构成
+（结合线代教科书总结）
+3.
+若矩阵A行列式|A|=0，矩阵A为奇异矩阵(singular matrix)，不可逆inconvertible，该矩阵的秩为r(A) < n,
+各列矩阵(column vector)线性相关，极大无关组(即矩阵列向量空间的基)数量为r < n,
+其齐次方程组有无数解，其解向量空间的基础解系(即解向量空间的基)数量为n-r。
+4.
+若矩阵A行列式|A|不为0，矩阵A为非奇异矩阵（non-singular matrix），可逆convertible, 该矩阵满秩即r(A) = n，各列矩阵(column vector)线性无关，
+极大无关组(即列向量互为线性无关，即矩阵列向量空间的基)数量为r=n，即r(A)=n, 其齐次方程组只有0解，解向量空间的基础解系(即解向量空间的基)数量为n-r=n-n=0。
+
+n vectors give basics if the n x n matrix with those cols is invertible.
+given a space: every basics for the space has the same number of vectors - the dimension of the space
+rank(A)=# of pivot columns = dimension of C(A)
+dim C(A) = r
+dim N(A) = # of ree variables = n-r
+
+Lecture 10
+4 fundamental subspace
+column space C(A) R^m
+null space N(A) R^n
+row space = all combs of  rows of A = all combinations of columns of A.T = C(A.T) R^n
+null space of A.T N(A.T) = left null space of A R^m
+2.dimension
+(1)C(A)
+basics: pivot cols
+dim C(A) = rank r
+(2)C(A.T)
+dim C(A.T) = rank r
+row space anf column space has the same dimension
+basics:
+C(R)!=C(A) different column spaces, same row space
+Basics for row space of A or of R is the first r rows of R
+(3)N(A) null space
+basics: special solutions
+dim N(A) = # of free variables = n-r
+(4)N(A.T)
+dim N(A.T) = m- r = # of columns in A transpose
+basics:
+A.T y=0
+y.T A=0.T (left null space)
+rref [A(m by n) I(m by m)] - [R(m by n) E(m by m )]
+E A=R
+In chapter 2, if R was I, E was the incerse matrix because EA = I
+dim N(A.T) = m-r
+E的最后一行对A的行做线性组合后，得到R的最后一行，即0向量，也就是y^TA=0^T
+即，在基础行变换后，R有m-r行0向量（R has m-r zero rows)
+
+3. new vector space
+for example: all 3 by 3 matrices (matrix space M)
+subspaces of M:
+(1)upper triangular matrices
+(2)symmetric matrices
+(3)diagonal matrices
+like stretching the idea from R^n to R^(n x n)
+
+
+
+
+
+
+
+
+
+
+
+线性代数教科书
+第四章
+P175 定理4.4
+矩阵A特征值之和等于A的主对角线之和，特征值之积等于A的行列式|A|，所以若|A|为0，必有一特征值为0
+
+P180 定理4.7
+因矩阵A有n个特征值，且特征值中有n_i重特征根。在即n个特征值中，n_i个特征值相等，有n - n_i个特征值互不相等(根据定理，
+n阶矩阵A互不相等的特征值λ1,2,...m,所对应的特征向量a_1,a_2,...a_m线性无关)，可知现在矩阵A已有n - n_i个线性无关的特征向量。
+n_i重特征根λ_i，对应的矩阵λ_i * I - A的秩为r，基础解系的数量为n - r，所以r必须等于n - n_i, 此时基础解系的解为n_i，
+即n_i重解对应的基础解系数量为n_i。该n_i个解(向量)互相线性无关，此时线性无关的向量的总数为((n - n_i) + n_i = n), 矩阵A才与对角矩阵相似。
+
+4.3
+P185定义4.6
+向量范数norm:
+单位向量：长度为1的单位向量。向量a(不为0)的长度去除向量a，就得到单位向量，称为把向量a单位化
+正交向量：两个向量内积为0
+正交矩阵：行列式为1或-1，矩阵的逆等于矩阵的转置,Q*Q.T=I
+
+
+实对称矩阵：
+实对称矩阵(real symmetric matrices)
+如果有n阶矩阵A，其各个元素都为实数，矩阵A的转置等于其本身，则称A为实对称矩阵。
+(1)实对称矩阵A的不同特征值对应的特征向量是正交的。
+(2)实对称矩阵A的特征值都是实数，特征向量都是实向量。
+(3)n阶实对称矩阵A必可对角化，且相似对角阵上的元素即为矩阵本身特征值。
+(4)若λ_0具有k重特征值　必有k个线性无关的特征向量，或者说必有秩r(λ_0E-A)=n-k，其中E为单位矩阵。
